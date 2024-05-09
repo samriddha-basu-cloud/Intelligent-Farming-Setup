@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroPulse&#8480;</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        ::-moz-selection { /* Code for Firefox */
+            color: #F8FFF8;
+            background: #4CAF50;
+        }
+
+        ::selection {
+            color: #F8FFF8;
+            background: #4CAF50;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F8FFF8;
+        }
+
+        header {
+            background-color: #45a049;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #navbar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        #navbar-left h1 {
+            margin: 0;
+        }
+
+        #navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        #user-profile, #notifications {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin-left: 20px;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        #dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+
+        p {
+            color: #666;
+        }
+
+        #pageHeader {
+            font-family: "Times New Roman", Times, serif;
+            letter-spacing: .5px;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px;
+            font-size: 5vh;
+            color: #4CAF50;
+        }
+
+        /* Main content styles */
+        #content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .setting-item {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        select, button {
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        /* Remove decoration from dropdown menu */
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: none;
+            background-color: #ffffff; /* Set background color */
+            border: 1px solid #ccc; /* Add border for consistency */
+            padding: 8px; /* Add padding for better appearance */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logout-button-container {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px; /* Add margin bottom to separate the logout button from settings options */
+        }
+
+        #logout-button, #deactivate-account {
+            background-color: #45a049;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            margin: 0px 20px 0px;
+        }
+
+        #logout-button:hover, #deactivate-account:hover {
+            background-color: #4CAF50;
+        }
+
+        /* Media queries for responsiveness */
+        @media only screen and (max-width: 768px) {
+            #content {
+                padding: 20px 50px; /* Adjust left and right padding */
+            }
+
+
+            .setting-item {
+                display: flex;
+                justify-content: space-between;
+            }
+                    
+            .setting-item > * {
+                flex-basis: calc(50% - 10px);
+            }
+
+            .button-container {
+                flex-direction: column;
+            }
+
+            #logout-button, #deactivate-account {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .setting-item button {
+                margin-left: 10px; /* Add some margin between buttons */
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div id="navbar-left">
+            <h1>AgroPulse&#8480;</h1>
+        </div>
+        <div id="navbar-right">
+            <a href="profile.html"><button id="user-profile"><i class="fas fa-user"></i></button></a>
+            <a href="index.html"><button id="notifications"><i class="fas fa-home"></i></button></a>
+        </div>
+    </header>
+
+    <h2 id="pageHeader">Settings</h2>
+
+    <div id="content">
+        <div class="setting-item">
+            <label for="language-select">Language:</label>
+            <select id="language-select" name="language-select">
+                <option value="en">English</option>
+                <option value="fr">বাংলা</option>
+                <option value="fr">ଓଡ଼ିଆ</option>
+                <option value="fr">हिंदी</option>
+                <option value="fr">ਪੰਜਾਬੀ</option>
+                <option value="fr">नेपाली</option>
+                <option value="fr">தமிழ்</option>
+                <option value="fr">తెలుగు</option>
+                <option value="fr">മലയാളം</option>
+                <option value="fr">ಕನ್ನಡ</option>
+                <option value="fr">অসমিয়া</option>
+            </select>
+        </div>
+
+        <div class="setting-item">
+            <label for="font-size-select">Font Size:</label>
+            <select id="font-size-select" name="font-size-select">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </div>
+
+        <div class="setting-item button-container">
+            <button id="deactivate-account" onclick="logout()">Deactivate Account</button>
+            <button id="logout-button" onclick="logout()">Log Out</button>
+        </div>
+    </div>
+
+    <!-- Disable Right Click -->
+    <script>
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        function logout() {
+            window.location.href = 'login.html';
+            alert('Logout button clicked. Add your logout logic.');
+        }
+    </script>
+</body>
+<script src="script.js"></script>
+</html>

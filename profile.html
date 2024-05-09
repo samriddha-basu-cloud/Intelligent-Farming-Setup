@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroPulse&#8480;</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        ::-moz-selection { /* Code for Firefox */
+            color: #F8FFF8;
+            background: #4CAF50;
+        }
+
+        ::selection {
+            color: #F8FFF8;
+            background: #4CAF50;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F8FFF8;
+        }
+
+        header {
+            background-color: #45a049;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #navbar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        #navbar-left h1 {
+            margin: 0;
+        }
+
+        #navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        #user-profile, #notifications {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin-left: 20px;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        #dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #45a049;
+        }
+
+        p {
+            color: #666;
+        }
+
+        #pageHeader {
+            font-family: "Times New Roman", Times, serif;
+            letter-spacing: .5px;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px;
+            font-size: 5vh;
+        }
+
+        #profile-picture {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .circle img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #45a049; /* Adjust the border color as needed */
+            border-radius: 50%;
+        }
+
+
+        #profile-form {
+            padding: 20px;
+        }
+
+        #profile-form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            float: left; /* Adjust the label alignment */
+            width: 30%; /* Adjust the label width */
+            text-align: right; /* Align the labels to the right */
+            margin-right: 2%; /* Add some spacing between labels and fields */
+        }
+
+        #profile-form input,
+        #profile-form select {
+            width: 65%; /* Adjust the field width */
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            float: left; /* Align the fields to the left */
+        }
+
+        #profile-form:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        #logout-button-container {
+            text-align: center; /* Center the button */
+            margin-top: 20px; /* Adjust the margin as needed */
+        }
+
+        #logout-button {
+            background-color: #45a049;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        #logout-button:hover {
+            background-color: #4CAF50;
+        }
+
+        /* Media queries for responsiveness */
+        @media only screen and (max-width: 768px) {
+            #profile-form {
+                grid-template-columns: repeat(2, 1fr); /* Change to single column layout on smaller screens */
+                padding: 20px 10px 15px;
+            }
+
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="navbar-left">
+            <h1>AgroPulse&#8480;</h1>
+        </div>
+        <div id="navbar-right">
+            <a href="setting.html"><button id="user-profile"><i class="fas fa-gear"></i></button></a>
+            <a href="#"><button id="notifications"><i class="fas fa-bell"></i></button></a>
+            <a href="index.html"><button id="notifications"><i class="fas fa-home"></i></button></a>
+        </div>
+    </header>
+
+    <h2 id="pageHeader">Profile</h2>
+
+    <!-- Profile picture -->
+    <div id="profile-picture">
+        <div class="circle">
+            <img src="assets/images/favicon.png" alt="Profile Picture">
+        </div>
+    </div>
+
+    <!-- Profile form -->
+    <form id="profile-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+    
+        <label for="phone-number">Phone Number:</label>
+        <input type="tel" id="phone-number" name="phone-number" placeholder="Enter your phone number" required>
+
+        <label for="aadhaar-number">Aadhaar Number:</label>
+        <input type="text" id="aadhaar-number" name="aadhaar-number" placeholder="Enter Aadhaar number" required>
+    
+    
+        <label for="region">Region:</label>
+        <input type="text" id="region" name="region" placeholder="Enter your region" required>
+    
+        <label for="crop-type">Crop Types:</label>
+        <select id="crop-type" name="crop-type" required>
+            <option value="">Select Crop Type</option>
+            <option value="Wheat">Wheat</option>
+            <option value="Rice">Rice</option>
+            <!-- Add more options as needed -->
+        </select>
+    
+        <label for="crop-name">Crop Names:</label>
+        <select id="crop-name" name="crop-name" required>
+            <option value="">Select Crop Name</option>
+            <!-- Options will be dynamically populated based on the selected Crop Type -->
+        </select>
+    
+        <label for="farm-parameters">Farm Parameters:</label>
+        <input type="text" id="farm-parameters" name="farm-parameters" placeholder="Enter farm parameters" required>
+    
+        <label for="preferred-tenure">Preferred Tenure:</label>
+        <select id="preferred-tenure" name="preferred-tenure" required>
+            <option value="">Select Preferred Tenure</option>
+            <option value="1 Year">1 Year</option>
+            <option value="2 Years">2 Years</option>
+            <!-- Add more options as needed -->
+        </select>
+    </form>
+    
+
+    <!-- Logout button container -->
+    <div id="logout-button-container">
+        <button id="logout-button" onclick="logout()">Log Out</button>
+    </div>
+
+    <!-- Disable Right Click -->
+    <script>
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        function logout() {
+            window.location.href = 'login.html';
+            alert('Logout button clicked. Add your logout logic.');
+        }
+    </script>
+</body>
+</html>
+
+
+
+                                                    <!-- Literature Survey
+
+// Ref no. |            Author              |          Title         |        Outcome       |       Limitations      |
+// [1]     | author name 1 , Et. al. [Year] |           ...          |         ...          |           ...          |
+// [2]
+
+springer, elsewhere -->

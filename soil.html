@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroPulse&#8480;</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        ::-moz-selection { /* Code for Firefox */
+            color: #F8FFF8;
+            background: #4CAF50;
+        }
+
+        ::selection {
+            color: #F8FFF8;
+            background: #4CAF50;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F8FFF8;
+        }
+
+        header {
+            background-color: #45a049;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #navbar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        #navbar-left h1 {
+            margin: 0;
+        }
+
+        #navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        #user-profile, #notifications {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin-left: 20px;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        #dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 5px;
+        }
+
+        .card {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 15px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #45a049;
+        }
+
+        p {
+            color: #666;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+       .section-header {
+            background-color: #45a049;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .chart-container {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        #pageHeader {
+            font-family: "Times New Roman", Times, serif;
+            letter-spacing: .5px;
+        }
+
+        /* Media queries for responsiveness */
+        @media only screen and (max-width: 768px) {
+            #dashboard-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 80%;
+            }
+        }
+
+         /* Custom styling for the Requirement/Analysis section */
+        #requirement-analysis {
+            background-color: #F8FFF8;
+            color: #4CAF50;
+            text-align: center;
+            padding: 20px;
+            margin: 20px auto;
+            width: 70%; /* Adjust width as needed */
+        }
+        /* Custom styling for the heading in the Requirement/Analysis section */
+        #requirement-analysis h2 {
+            font-family: 'Times New Roman';
+            font-weight:900; /* Remove boldness */
+            font-size: 32px; /* Adjust font size as needed */
+            margin: 0; /* Remove default margin */
+            padding-bottom: 10px; /* Add some spacing below the heading */
+        }
+
+
+        /* Custom styling for the table */
+        table {
+            width: 70%; /* Adjust width as needed */
+            margin: 0 auto; /* Center align the table */
+            border-collapse: collapse;
+            margin-bottom: 20px; /* Add margin below the table */
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #45a049; /* Header background color */
+            color: #fff; /* Header text color */
+        }
+
+        /* Media query for responsiveness */
+        @media only screen and (max-width: 768px) {
+            #requirement-analysis h2 {
+                font-weight:800; /* Remove boldness */
+                font-size: 28px;
+            }
+            /* Adjust styles for smaller screens */
+            table, #requirement-analysis {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="navbar-left">
+            <h1>AgroPulse&#8480;</h1>
+        </div>
+        <div id="navbar-right">
+            
+            <a href="index.html"><button id="notifications"><i class="fas fa-home"></i></button></a>
+            <a href="weather.html"><button id="user-profile"><i class="fas fa-cloud"></i></button></a>
+            <a href="profile.html"><button id="user-profile"><i class="fas fa-user"></i></button></a>
+        </div>
+    </header>
+
+    <h2 id="pageHeader" style="font-weight: bold; text-align: center; margin: 10px; font-size: 5vh;">Soil Data</h2>
+        
+     <div id="dashboard-container"></div>
+
+    <!-- New section for Requirement/Analysis -->
+    <div id="requirement-analysis">
+        <!-- The heading will be dynamically created here -->
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Particulars</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <!-- Existing content continues -->
+
+    <script>
+        // Dynamically create the Requirement/Analysis heading
+        function createRequirementAnalysisHeader() {
+            const requirementAnalysisHeader = document.createElement('h2');
+            requirementAnalysisHeader.textContent = 'Requirement/Analysis';
+
+            const requirementAnalysisSection = document.getElementById('requirement-analysis');
+            requirementAnalysisSection.appendChild(requirementAnalysisHeader);
+        }
+
+        // Populate the table with data
+        function populateTable() {
+            const tableBody = document.querySelector('tbody');
+
+            // Sample data for demonstration
+            const data = [
+                { particulars: 'Soil pH', action: 'Adjust pH as per crop requirements' },
+                { particulars: 'Soil Moisture', action: 'Ensure adequate moisture levels for optimal plant growth' },
+                { particulars: 'Nitrogen', action: 'Adjust Nitrogen as per crop requirements' },
+                { particulars: 'Potassium', action: 'Ensure adequate Potassium for optimal plant growth' },
+                { particulars: 'Phosphorus', action: 'Keep Phosphorus level as per crop requirements' },
+                { particulars: 'Soil Temperature', action: 'Soil should be cooler for optimal plant growth' },
+                // Add more data as needed
+            ];
+
+            data.forEach(item => {
+                const row = document.createElement('tr');
+
+                const particularsCell = document.createElement('td');
+                particularsCell.textContent = item.particulars;
+
+                const actionCell = document.createElement('td');
+                actionCell.textContent = item.action;
+
+                row.appendChild(particularsCell);
+                row.appendChild(actionCell);
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Call the functions to create the header and populate the table
+        createRequirementAnalysisHeader();
+        populateTable();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('https://agricultue-5d809-default-rtdb.firebaseio.com/.json')
+                .then(response => response.json())
+                .then(data => {
+                    const dashboardContainer = document.getElementById('dashboard-container');
+                    
+                    // Clear existing data
+                    dashboardContainer.innerHTML = '';
+
+                    // Loop through the data and create cards for each value
+                    for (const key in data) {
+                        const value = data[key];
+                        const card = document.createElement('div');
+                        card.classList.add('card');
+
+                        // Create heading for the card
+                        const heading = document.createElement('h2');
+                        heading.textContent = key;
+                        card.appendChild(heading);
+
+                        // Create paragraph for the value
+                        const paragraph = document.createElement('p');
+                        paragraph.textContent = value;
+                        card.appendChild(paragraph);
+
+                        // Append the card to the dashboard container
+                        dashboardContainer.appendChild(card);
+                    }
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
+    <!-- Disable Right Click -->
+    <script>
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+    </script>
+    
+</body>
+</html>
