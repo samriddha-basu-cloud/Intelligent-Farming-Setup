@@ -9,7 +9,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script src="script.js"></script>
-
+    <script>
+    // Apply stored font size on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            var storedSize = localStorage.getItem('fontSize');
+            if (storedSize) {
+                updateFontSize(storedSize);
+            }
+        });
+    </script>
     <style>
         ::-moz-selection { /* Code for Firefox */
             color: #F8FFF8;

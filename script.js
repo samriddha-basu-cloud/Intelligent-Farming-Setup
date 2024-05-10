@@ -38,3 +38,40 @@ function translateContent() {
 window.onload = function () {
     translateContent();
 };
+
+function adjustTextSize() {
+    var selectedSize = document.getElementById('text-size-select').value;
+
+    // Store selected font size in local storage
+    localStorage.setItem('fontSize', selectedSize);
+
+    // Set new font size
+    updateFontSize(selectedSize);
+}
+
+function updateFontSize(size) {
+    var newSize;
+
+    switch (size) {
+        case 'small':
+            newSize = 10;
+            break;
+        case 'medium':
+            newSize = 16;
+            break;
+        case 'large':
+            newSize = 22;
+            break;
+        default:
+            newSize = 14; // Default to medium size
+            break;
+    }
+
+    // Set new font size
+    document.body.style.fontSize = newSize + 'px';
+}
+
+
+// Add event listener to select element
+document.getElementById('text-size-select').addEventListener('change', adjustTextSize);
+
