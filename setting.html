@@ -230,30 +230,12 @@
         document.addEventListener('contextmenu', function (e) {
             e.preventDefault();
         });
-
-         function changeLanguage(selectedLanguage) {
-            // Store selected language in local storage
-                localStorage.setItem("language", selectedLanguage);
-
-            // Redirect to the same page to apply language change
-                window.location.reload();
-                }
-
         function logout() {
             window.location.href = 'login.html';
             alert('Logout button clicked. Add your logout logic.');
         }
     </script>
-     <script>
-        function googleTranslateElementInit(){
-            new google.translate.TranslateElement(
-                {
-                    pageLanguage:'en',
-                },
-                'google_translate_element'
-            );
-        }
-    </script>
+    
 </body>
 <script src="script.js"></script>
 </html>
