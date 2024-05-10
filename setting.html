@@ -193,7 +193,8 @@
     <div id="content">
         <div class="setting-item">
             <label for="language-select">Language:</label>
-            <select id="language-select" name="language-select">
+             <div id ="google_translate_element"></div>
+            <!-- <select id="language-select" name="language-select">
                 <option value="en">English</option>
                 <option value="fr">বাংলা</option>
                 <option value="fr">ଓଡ଼ିଆ</option>
@@ -205,7 +206,7 @@
                 <option value="fr">മലയാളം</option>
                 <option value="fr">ಕನ್ನಡ</option>
                 <option value="fr">অসমিয়া</option>
-            </select>
+            </select> -->
         </div>
 
         <div class="setting-item">
@@ -222,6 +223,7 @@
             <button id="logout-button" onclick="logout()">Log Out</button>
         </div>
     </div>
+     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <!-- Disable Right Click -->
     <script>
@@ -229,9 +231,27 @@
             e.preventDefault();
         });
 
+         function changeLanguage(selectedLanguage) {
+            // Store selected language in local storage
+                localStorage.setItem("language", selectedLanguage);
+
+            // Redirect to the same page to apply language change
+                window.location.reload();
+                }
+
         function logout() {
             window.location.href = 'login.html';
             alert('Logout button clicked. Add your logout logic.');
+        }
+    </script>
+     <script>
+        function googleTranslateElementInit(){
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage:'en',
+                },
+                'google_translate_element'
+            );
         }
     </script>
 </body>
